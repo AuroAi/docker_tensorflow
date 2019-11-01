@@ -5,6 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /workspace
 
+RUN apt-get update -y && apt install -y protobuf-compiler python-tk git 
+
 RUN PROTOC_VERSION=3.0.0 && \
     PROTOC_ZIP=protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
     curl -OL https://github.com/google/protobuf/releases/download/v$PROTOC_VERSION/$PROTOC_ZIP && \
@@ -34,25 +36,26 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
 # Install the Tensorflow Object Detection API from here
 # https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md
 
-
 # Install object detection api dependencies
-RUN apt-get install -y protobuf-compiler python-pil python-lxml python-tk 
-
 
 # Install Python dependencies
 RUN python3 -m pip install --upgrade --no-cache-dir pip \
  && python3 -m pip install --no-cache-dir \
-      contextlib2 \
       Cython==0.28.4 \
+      Pillow \
+      absl-py \
+      contextlib2 \
+      lxml \
+      matplotlib \
       mlperf-compliance==0.0.10 \
+      numpy \
       opencv-python==3.4.1.15 \
+      pandas \
+      pycocotools==2.0.0 \
       setuptools \
-      yacs
+      yacs 
 
-# Install pycocoapi
-RUN python3 -m pip install --no-cache-dir \
-      pycocotools==2.0.0 
-
+#Alternative to `pip install pycocotools`
 #RUN git clone --depth 1 https://github.com/cocodataset/cocoapi.git && \
 #    cd cocoapi/PythonAPI && \
 #    make -j8 && \
@@ -68,3 +71,6 @@ RUN cd /tensorflow/models/research && \
 
 # Set the PYTHONPATH to finish installing the API
 ENV PYTHONPATH $PYTHONPATH:/tensorflow/models/research:/tensorflow/models/research/slim
+RUN ln -sf /usr/bin/python3 /usr/bin/python & \
+    ln -sf /usr/bin/pip3 /usr/bin/pip
+
