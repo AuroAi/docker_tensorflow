@@ -6,13 +6,18 @@ REPO=auroai/tensorflow
 
 IMAGE_TAG="latest"
 
-BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.09-py3
-#pytorch/pytorch:1.2-cuda10.0-cudnn7-runtime 	# 3.85GB
-#pytorch/pytorch:1.2-cuda10.0-cudnn7-devel	# 6.66GB
-#nvcr.io/nvidia/tensorflow:19.09-py3		# 8.44GB
-#ufoym/deepo:tensorflow-py36-cu100		# 4.94GB
-#ufoym/deepo:all-jupyter-py36-cu100		# 10.9GB
-#ufoym/deepo:all-jupyter-py36-cu90		# 9.76GB
+BASE_IMAGE=nvcr.io/nvidia/tensorflow:19.06-py3
+#tensorflow/tensorflow:nightly-gpu-py3-jupyter	# 2.87 GB
+#tensorflow/tensorflow:2.0.0-gpu-py3-jupyter	# 3.56 GB
+#tensorflow/tensorflow:1.15.0-gpu-py3-jupyter	# 3.71 GB
+#tensorflow/tensorflow:1.14.0-gpu-py3-jupyter	# 3.65 GB
+#tensorflow/tensorflow:1.13.2-gpu-py3-jupyter	# 3.49 GB
+#nvcr.io/nvidia/tensorflow:19.09-py3			# 8.44 GB
+#ufoym/deepo:tensorflow-py36-cu100				# 4.94 GB
+#ufoym/deepo:all-jupyter-py36-cu100				# 10.9 GB
+#ufoym/deepo:all-jupyter-py36-cu90				# 9.76 GB
+
+
 
 
 IMAGE="${REPO}:${IMAGE_TAG}"
@@ -28,7 +33,7 @@ OPTIONS:
 	pull           Pull Image
 	push           Push Image
 	del            Delete/Remove Image (locally)
-	run	       Run the image
+	run	           Run the image
 	-n             Build with no cache
 
 EOF
